@@ -85,7 +85,7 @@ class _ViewdInnerscreenState extends State<ViewdInnerscreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ts("Reporting person approval", Colors.black),
-                      tssb(widget.status=="Rejected"?"Rejected": "Approved",widget.status=="Rejected"?Colors.pink: Colors.green,FontWeight.w700)
+                      tssb(widget.status=="Rejected"?"Rejected": "Approved",widget.status=="Rejected"?pinkreject: Colors.green,FontWeight.w700)
         
                     ],
                   ),
@@ -96,7 +96,7 @@ class _ViewdInnerscreenState extends State<ViewdInnerscreen> {
                     children: [
                       ts("Finance approval", Colors.black),
                       tssb(widget.status=="Rejected"?"Rejected":widget.status=="Paid"?"Approved":"Pending",
-                          widget.status=="Rejected"?Colors.pink:widget.status=="Paid"?Colors.green:Colors.amber,
+                          widget.status=="Rejected"?pinkreject:widget.status=="Paid"?Colors.green:yellowpending,
                           FontWeight.w700)
         
                     ],
@@ -145,7 +145,7 @@ gapHC(10),
                         height: 26,
                         width: 90,
                       //  padding: EdgeInsets.symmetric(vertical: 2,horizontal: 30),
-                        decoration: boxBaseDecoration(  widget.status=="Rejected"?Colors.pink:widget.status=="Paid"?Colors.green:Colors.amber, 20),
+                        decoration: boxBaseDecoration(  widget.status=="Rejected"?pinkreject:widget.status=="Paid"?Colors.green:yellowpending, 20),
                         child: Center(child: tssb(widget.status=="Rejected"?"Rejected":widget.status=="Paid"?"Paid":"Pending", Colors.white, FontWeight.w500)),
                       ),
                       tcustom("\u{20B9}15,23.00", primaryColor, 18.0, FontWeight.w500),

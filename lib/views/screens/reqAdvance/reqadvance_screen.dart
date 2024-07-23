@@ -21,15 +21,32 @@ class _ReqadvanceScreenState extends State<ReqadvanceScreen> {
   final RequestAdvancecontroller requestAdvancecontroller =
   Get.put(RequestAdvancecontroller());
   final FocusNode remark_focusNode = FocusNode();
-  final FocusNode amount_focusNode = FocusNode();
+  //final FocusNode amount_focusNode = FocusNode();
   final FocusNode purpose_focusNode = FocusNode();
   @override
   void dispose() {
     // Clean up the focus node when the widget is disposed
     remark_focusNode.dispose();
-    amount_focusNode.dispose();
+  //  amount_focusNode.dispose();
     purpose_focusNode.dispose();
+    requestAdvancecontroller.focusNode.dispose();
     super.dispose();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requestAdvancecontroller.focusNode = FocusNode();
+
+    // Add listener to the FocusNode
+    requestAdvancecontroller.focusNode.addListener(() {
+      if (!requestAdvancecontroller.focusNode.hasFocus) {
+        // Perform action when keyboard is dismissed
+        print('Keyboard dismissed');
+        requestAdvancecontroller.formatNumber();
+        // You can replace this with any action you want to perform
+      }
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -204,20 +221,49 @@ class _ReqadvanceScreenState extends State<ReqadvanceScreen> {
                       ts("Amount", Colors.black),
                       gapHC(2),
                       Row(
-                        children: [ 
+                        children: [
                           Expanded(
-                            child: TextinputfieldContainer(
-                                showIcon: false,
-                                verticalPadding: 6,
-                                maxline: 1,
-                                keybordType: TextInputType.number,
-                                focusNode: amount_focusNode,
-                                onSubmitted:  (){
-                                  amount_focusNode.unfocus();
-                                } ,
-                                hintText: "Amount",
-                                isEnable: true,
-                                isObscure: false),
+                            child: TextField(
+                              controller: requestAdvancecontroller.txtAmount.value,
+                              obscureText: false,
+                              enabled: true,
+                              textInputAction:TextInputAction.done ,
+
+
+
+                              style: const TextStyle(color: Colors.black),
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                contentPadding:EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 0.0
+                                ),
+
+                                hintText: 'Amount',
+                                hintStyle: hintTextStyle(),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide:  BorderSide(color: Colors.grey.shade400),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide:  BorderSide(color: Colors.grey.shade500),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: mfnInputDecFormatters(),
+                              onSubmitted: (v){
+                                dprint("ONSUBMITTTTTTTTTTTTTTTT");
+                                requestAdvancecontroller.formatNumber();
+
+                              },
+                              focusNode: requestAdvancecontroller.focusNode,
+
+
+
+
+
+                            ),
                           ),
                           Expanded(child: SizedBox())
                         ],

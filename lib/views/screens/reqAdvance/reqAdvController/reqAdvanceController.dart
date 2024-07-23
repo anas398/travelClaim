@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:travel_claim/views/components/common.dart';
 
 class RequestAdvancecontroller extends GetxController{
   Rx<DateTime> reqDate = DateTime.now().obs;
   RxString lstrTypeofTrip = 'Inauguration'.obs;
   RxString lstrBranchName= 'Thrissure'.obs;
+  late FocusNode focusNode;
   TextEditingController txtpurposeTrip = TextEditingController();
   TextEditingController txtRemark = TextEditingController();
+  final NumberFormat _numberFormat = NumberFormat("#,##0.00");
+
+  final Rx<TextEditingController> txtAmount = TextEditingController().obs;
   var typeOfTripList = [
     'Inauguration',
     'Branch Visit',
@@ -41,5 +47,11 @@ class RequestAdvancecontroller extends GetxController{
 
 
   }
+  void formatNumber() {
+    if (txtAmount.value.text.isNotEmpty) {
 
+      txtAmount.value.text = _numberFormat.format(double.tryParse(txtAmount.value.text));
+      dprint("ADSADADAS  >>>  >>> ${txtAmount.value.text}");
+    }
+  }
 }

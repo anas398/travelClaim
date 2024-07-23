@@ -1,6 +1,7 @@
 
 import 'package:bounce/bounce.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:travel_claim/views/components/alertDialog.dart';
 import 'package:travel_claim/views/components/bg.dart';
@@ -23,6 +24,13 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
   final ClaimapprovelController claimapprovelController = Get.put(ClaimapprovelController());
 
   final FocusNode remark_focusNode = FocusNode();
+  late FToast fToast;
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
 
   @override
   void dispose() {
@@ -31,6 +39,7 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
 
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size =MediaQuery.of(context).size;
@@ -137,7 +146,7 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                          },
                          child: Padding(
                          padding:   EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                           child: expansionTile(  claimapprovelController.claimList.value[index]["image"]!, claimapprovelController.claimList.value[index]["label"]),
+                           child: expansionTile(   claimapprovelController.claimList.value[index]["image"]!,  claimapprovelController.claimList.value[index]["label"]),
                          )
 
                      ),
@@ -242,6 +251,12 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                                      child:Custombutton(onTap: (){
                                        claimConfirmationbutton(ontap: (){
                                          Get.back();
+
+                                         fToast.showToast(
+                                             child: Center(
+                                               child: showToastMessage(msg: "Claim has been Rejected",
+                                                   iconColor: Colors.red,icon: Icons.close_rounded),
+                                             ));
                                        },status: 'reject');
 
                                      }
@@ -254,8 +269,17 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                                      child:Custombutton(
                                        //  onTap:approvelrequest,
                                          onTap:(){
-                                           claimConfirmationbutton(ontap: (){},status: 'approve');
-
+                                           approvelrequest();
+                                         //   claimConfirmationbutton(ontap: (){
+                                         //     Get.back();
+                                         //     fToast.showToast(
+                                         //         child: Center(
+                                         //           child: showToastMessage(msg: "Claim has been Approved",
+                                         //               iconColor: Colors.green,icon: Icons.check_circle_rounded),
+                                         //         ));
+                                         //
+                                         //   },status: 'approve');
+                                         // //
                                          },
                                          buttonName: "Send Approval",
                                          buttonColor: primaryColor,
@@ -283,6 +307,12 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                      child:Custombutton(onTap: (){
                        claimConfirmationbutton(ontap: (){
                          Get.back();
+
+                         fToast.showToast(
+                             child: Center(
+                               child: showToastMessage(msg: "All Claim has Rejected",
+                                   iconColor: Colors.red,icon: Icons.close_rounded),
+                             ));
                        },status: 'rejectall');
 
                      }
@@ -297,6 +327,12 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                          onTap:(){
                            claimConfirmationbutton(ontap: (){
                              Get.back();
+                             fToast.showToast(
+                                 child: Center(
+                                   child: showToastMessage(msg: "All Claim has Approved",
+                                       iconColor: Colors.green,icon: Icons.check_circle_rounded),
+                                 ));
+
                            },status: 'approveall');
 
                          },
@@ -562,9 +598,19 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                 gapWC(20),
                 Expanded(
                     child:Custombutton(onTap:(){
-                      submitAlert(status: 'approve',ontap: (){
+                      // submitAlert(status: 'approve',ontap: (){
+                      //
+                      // });
+                      claimConfirmationbutton(ontap: (){
+                        Get.back();
+                        Get.back();
+                        fToast.showToast(
+                            child: Center(
+                              child: showToastMessage(msg: "Claim has been Approved",
+                                  iconColor: Colors.green,icon: Icons.check_circle_rounded),
+                            ));
 
-                      });
+                      },status: 'approve');
 
 
                     },
@@ -652,7 +698,7 @@ class _ClaimConfirmationScreenState extends State<ClaimConfirmationScreen> {
                                       buttonTextColor: Colors.black)),
                               gapWC(20),
                               Expanded(
-                                  child:Custombutton(onTap:ontap,
+                                  child:Custombutton(onTap:(ontap),
                                       buttonName: buttontxtst,
                                       buttonColor: primaryColor,
                                       buttonTextColor: Colors.white)

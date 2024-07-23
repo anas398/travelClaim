@@ -1,3 +1,4 @@
+import 'package:bounce/bounce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_claim/views/components/common.dart';
@@ -89,5 +90,62 @@ Future bottomsheet(context,status,type, { VoidCallback ? ontap}) {
 
     enableDrag: false,
 
+  );
+}
+
+Future<void> endBottomSheetDialog(title,subtitle,btnYesName,btnNoName,[fnEnd]) async {
+  return   Get.bottomSheet(
+      barrierColor: Colors.black.withOpacity(0.7),
+      Container(
+        height:  subtitle.toString().isEmpty?180: 220,
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        decoration: boxDecorationC(Colors.white, 35.0, 35.0, 0.0, 0.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            gapHC(20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  tcn(title.toString(), Colors.black,15),
+                  subtitle.toString().isEmpty?gapHC(0):tc(subtitle.toString(), Colors.black54,14.0),
+                  subtitle.toString().isEmpty?  gapHC(10):gapHC(15),
+
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 7,
+                  child: Custombutton(
+                      buttonName: btnYesName,
+                      buttonColor: primaryColor,
+                      buttonTextColor: Colors.white,
+                      onTap: (){
+                        fnEnd();
+
+                      }),
+                ),
+                gapWC(8),
+                Expanded(
+                  flex: 3,
+                  child: Custombutton(
+                      buttonName: btnNoName,
+                      buttonColor: primaryColor,
+
+                      buttonTextColor: Colors.white,
+                      onTap: (){
+                       Get.back();
+
+                      }),
+                ),
+              ],
+            ),
+            gapHC(20),
+          ],
+        ),
+      )
   );
 }

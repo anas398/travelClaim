@@ -11,6 +11,7 @@ import 'package:travel_claim/views/screens/cmdApproels/cmdapprovel_screen.dart';
 import 'package:travel_claim/views/screens/draftScreen/draftscreen.dart';
 import 'package:travel_claim/views/screens/history/historyscreen.dart';
 import 'package:travel_claim/views/screens/newClaim/add_expense_screen.dart';
+import 'package:travel_claim/views/screens/newClaim/newclaim_controller/addExpenseController.dart';
 import 'package:travel_claim/views/screens/reqAdvance/reqadvance_screen.dart';
 import 'package:travel_claim/views/screens/specialApprovel/specialapprovel_screen.dart';
 import 'package:travel_claim/views/style/colors.dart';
@@ -24,6 +25,16 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final Addexpensecontroller addexpensecontroller =
+  Get.put(Addexpensecontroller());
+
+  @override
+  void initState() {
+     addexpensecontroller.apiGetListofBranches();
+     addexpensecontroller.apiGetListofTypeTrip();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,18 +42,32 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: primaryColor,
       body: Stack(
         children: [
-          bgDashBoard(context),
+          bgDashBoard(context,addexpensecontroller.g.wstrEmpName.toString()),
           Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 193,left: 20,right: 20),
+              padding: const EdgeInsets.only(top: 123,left: 20,right: 20),
               child: SingleChildScrollView(
                 child: Column(
                   // mainAxisSize: MainAxisSize.min,
-                  //      crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.center,
                 
                   children: [
-                
+                    gapHC(26),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 6),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          tchead("Welcome to your dashboard,", Colors.white, 20.0,
+                              FontWeight.w500),
+                          gapHC(1),
+                          tchead("${addexpensecontroller.g.wstrEmpName.toString()} - ${addexpensecontroller.g.wstrEmpId.toString()}", Colors.white, 20.0,
+                              FontWeight.w500),
+
+                        ],
+                      ),
+                    ),
                     gapHC(13),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,7 +181,35 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
-
+                    // gapHC(20),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+                    //     Expanded(
+                    //       child: Bounce(
+                    //           duration: const Duration(milliseconds: 110),
+                    //           onTap: (){
+                    //             dprint("sped");
+                    //             Get.to(()=>SpecialapprovelScreen());
+                    //
+                    //
+                    //           },
+                    //           child: menuCard(0.0, 0.0, 30.0, 0.0, AppAssets.speciaslApprvl_img, "Special\nApprovals")),
+                    //     ),
+                    //     gapWC(10),
+                    //     Expanded(
+                    //       child: Bounce(
+                    //           duration: const Duration(milliseconds: 110),
+                    //           onTap: (){
+                    //             dprint("CM");
+                    //             Get.to(()=>CmdapprovelScreen());
+                    //
+                    //           },
+                    //           child: menuCard(0.0, 0.0, 0.0,30.0,AppAssets.cmdApprvl_img, "CMD\nApprovals")),
+                    //     ),
+                    //   ],
+                    // ),
 
 
                     gapHC(20),

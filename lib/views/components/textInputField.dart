@@ -1,8 +1,10 @@
 import 'package:bounce/bounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:travel_claim/views/components/common.dart';
+import 'package:travel_claim/views/style/colors.dart';
 
-class TextinputfieldContainer extends StatelessWidget {
+class TextinputfieldContainer extends StatefulWidget {
   final bool showIcon;
   final bool isEnable;
   final int ?maxline;
@@ -14,57 +16,82 @@ class TextinputfieldContainer extends StatelessWidget {
   final IconData ? suffixIcon;
   final VoidCallback ? suffixIconOnclick;
   final VoidCallback ? onSubmitted;
+  final void Function(String)? onchange;
   final TextInputAction ? textInputAction;
   final FormFieldValidator ? validate;
   final double ? boxRadius;
   final Color ? boxRadiusColor;
   final FocusNode ? focusNode;
   final EdgeInsetsGeometry ? contentPadding;
+  final List<TextInputFormatter> ? inputFormattor;
 
 
-  const TextinputfieldContainer({super.key, required this.showIcon,  this.hintText,  this.controller,  this.keybordType, required this.isEnable,    this.suffixIcon, this.suffixIconOnclick, this.validate, required this.isObscure,  this.maxline, this.verticalPadding, this.boxRadius, this.boxRadiusColor, this.contentPadding, this.focusNode, this.onSubmitted, this.textInputAction,});
+  const TextinputfieldContainer({super.key, required this.showIcon,  this.hintText,  this.controller,  this.keybordType, required this.isEnable,    this.suffixIcon, this.suffixIconOnclick, this.validate, required this.isObscure,  this.maxline, this.verticalPadding, this.boxRadius, this.boxRadiusColor, this.contentPadding, this.focusNode, this.onSubmitted, this.textInputAction, this.onchange, this.inputFormattor,});
 
   @override
+  State<TextinputfieldContainer> createState() => _TextinputfieldContainerState();
+}
+
+class _TextinputfieldContainerState extends State<TextinputfieldContainer> {
+  @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: isObscure,
-      enabled: isEnable,
-        textInputAction:textInputAction ,
-      focusNode: focusNode,
+    return TextFormField(
+      controller: widget.controller,
+      validator:   widget.validate,
+      obscureText: widget.isObscure,
+      enabled: widget.isEnable,
+        textInputAction:widget.textInputAction ,
+      focusNode: widget.focusNode,
 
 
       style: const TextStyle(color: Colors.black),
-      maxLines: maxline,
+      maxLines: widget.maxline,
+      cursorColor: primaryColor,
       decoration: InputDecoration(
-        contentPadding:contentPadding?? EdgeInsets.symmetric(
+
+        contentPadding:widget.contentPadding?? EdgeInsets.symmetric(
           horizontal: 10,
-            vertical: verticalPadding??0.0
+            vertical: widget.verticalPadding??0.0
         ),
-        suffixIcon:showIcon? Bounce(
-          onTap: suffixIconOnclick,
+        suffixIcon:widget.showIcon? Bounce(
+          onTap: widget.suffixIconOnclick,
 
           child: Icon(
-             suffixIcon,
+             widget.suffixIcon,
             color: Colors.grey.shade600,
 
           ),
         ):SizedBox(),
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: hintTextStyle(),
+
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(boxRadius??10.0),
+          borderRadius: BorderRadius.circular(widget.boxRadius??10.0),
           borderSide:  BorderSide(color: Colors.grey.shade400),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(boxRadius?? 10.0),
-          borderSide:  BorderSide(color:boxRadiusColor?? Colors.grey.shade500),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(widget.boxRadius??10.0),
+          borderSide:  BorderSide(color: primaryColor),
         ),
+        focusColor: primaryColor,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(widget.boxRadius??10.0),
+          borderSide:  BorderSide(color: primaryColor),
+        ),
+          errorBorder:
+          OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.boxRadius??10.0),
+            borderSide:  BorderSide(color: Colors.grey.shade400),
+          ),
     ),
-      keyboardType: keybordType,
-      onSubmitted: (va){
-        onSubmitted;
-      }
+      keyboardType: widget.keybordType,
+      inputFormatters: widget.inputFormattor,
+    //   onSubmitted: (v){
+    //     onSubmitted;
+    //
+    // },
+
+      onChanged: widget.onchange
 
 
     );

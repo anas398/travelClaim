@@ -3,13 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:travel_claim/views/components/alertDialog.dart';
 import 'package:travel_claim/views/components/common.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:travel_claim/views/screens/dashboard/dashboardcontroller.dart';
+import 'package:travel_claim/views/screens/login/loginscreen.dart';
 import 'package:travel_claim/views/screens/notification/notification_screen.dart';
-import 'package:travel_claim/views/screens/profilescreen.dart';
+import 'package:travel_claim/views/screens/profile/profilescreen.dart';
+
 import '../const/appassets.dart';
 import '../style/colors.dart';
-
+final Dashboardcontroller dashboardcontroller = Get.put(Dashboardcontroller());
 Widget backgroundImg(context,bottomContainerXaxis,upperContainerXaxis){
   return Stack(
     children: [
@@ -120,7 +124,7 @@ Widget backgroundwithouAppicon(context,bottomContainerXaxis,upperContainerXaxis,
 //     ],
 //   );
 // }
-Widget bgDashBoard(context){
+Widget bgDashBoard(context,name){
   Size size = MediaQuery.of(context).size;
   return  Container(
     height: size.height,
@@ -143,45 +147,69 @@ Widget bgDashBoard(context){
                     Bounce(
                       duration: const Duration(milliseconds: 110),
                       onTap: (){
-                        Get.to(const Profilescreen());
+                        Get.to(()=>const Profilescreen());
                         dprint("profileeeeeeeeeeeeeee");
 
                       },
                       child: CircleAvatar(
                         radius: 22,
                         backgroundColor: Colors.white,
-                        child: thbAppbar("B", primaryColor),
+                        child: name.toString().isNotEmpty? thbAppbar(name[0], primaryColor):const SizedBox(),
                       ),
                     ),
-                    Bounce(
-                      duration: const Duration(milliseconds: 110),
-                      onTap: (){
-                        Get.to(()=>NotificationScreen());
-                        dprint("33333333333333333333");
-                      },
-                      child: badges.Badge(
-                          badgeContent: ts('3', Colors.white),
-                          position: badges.BadgePosition.topEnd(
-                              top: -11, end: -2),
-                          showBadge: true,
-                          badgeStyle: const badges.BadgeStyle(
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: Colors.red,
-                          ),
-                          child: const Icon(
-                            Icons.notifications_none_outlined,
-                            color: Colors.white,
-                            size: 28,
-                          )),
+                    Row(
+                      children: [
+                        Bounce(
+                          duration: const Duration(milliseconds: 110),
+                          onTap: (){
+                            //dashboardcontroller.apiLogout();
+                            endBottomSheetDialog(
+                                "Are you sure you want to logout?",
+                                "Log out the current user",
+                                "Yes, logout",
+                                "No",
+                                    (){
+                                      dashboardcontroller.apiLogout();
+                                }
+
+                            );
+
+                          },
+                          child: const Icon(Icons.power_settings_new,size: 28,color: Colors.white,)
+                        ),
+                        gapWC(16),
+                        Bounce(
+                          duration: const Duration(milliseconds: 110),
+                          onTap: (){
+                            Get.to(()=>const NotificationScreen());
+                            dprint("33333333333333333333");
+                          },
+                          child: badges.Badge(
+                              badgeContent: ts('3', Colors.white),
+                              position: badges.BadgePosition.topEnd(
+                                  top: -11, end: -2),
+                              showBadge: true,
+                              badgeStyle: const badges.BadgeStyle(
+                                shape: badges.BadgeShape.circle,
+                                badgeColor: Colors.red,
+                              ),
+                              child: const Icon(
+                                Icons.notifications_none_outlined,
+                                color: Colors.white,
+                                size: 28,
+                              )),
+                        ),
+                      ],
                     )
+
                   ],
                 ),
-                gapHC(26),
-                tchead("Welcome to your dashboard,", Colors.white, 20.0,
-                    FontWeight.w500),
-                gapHC(1),
-                tchead("Basil - MY GX-0000", Colors.white, 20.0,
-                    FontWeight.w500),
+                // gapHC(26),
+                // tchead("Welcome to your dashboard,", Colors.white, 20.0,
+                //     FontWeight.w500),
+                // gapHC(1),
+                // tchead("Basil - MY GX-0000", Colors.white, 20.0,
+                //     FontWeight.w500),
               ],
             ),
           ) ,

@@ -34,7 +34,7 @@ class _HistoryscreenState extends State<Historyscreen> {
       body: Obx(()=>Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               //decoration: boxDecoration(Colors.white, 10),
@@ -186,7 +186,7 @@ wPendingHistoryScreen(Size size) {
                       height: 26,
                       width: 90,
                  //     padding: EdgeInsets.symmetric(vertical: 2,horizontal: 20),
-                      decoration: boxDecoration(Colors.amber, 20),
+                      decoration: boxDecoration(yellowpending, 20),
                       child: Center(child: tssb("Pending", Colors.white, FontWeight.w500)),
                     )
 
@@ -302,7 +302,7 @@ wRejectedHistoryScreen(Size size) {
                       height: 26,
                       width: 90,
                     //  padding: EdgeInsets.symmetric(vertical: 2,horizontal: 20),
-                      decoration: boxDecoration(pinklight, 20),
+                      decoration: boxDecoration(pinkreject, 20),
                       child: Center(child: tssb("Rejected", Colors.white, FontWeight.w500)),
                     )
 
@@ -358,7 +358,7 @@ wAllHistoryScreen(Size size) {
                   width: 90,
 
                //   padding: EdgeInsets.symmetric(vertical: 2,horizontal: 20),
-                  decoration: boxDecoration(index==0?Colors.amber:index.isEven?Colors.green:pinklight, 20),
+                  decoration: boxDecoration(index==0?yellowpending:index.isEven?Colors.green:pinkreject, 20),
                   child: Center(child: tssb(index==0?"Pending":index.isEven?"Paid":"Rejected", Colors.white, FontWeight.w500)),
                 )
 

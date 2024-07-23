@@ -42,21 +42,28 @@ Widget menuCard(tl,tr,bl,br,icon,title,){
   );
 }
 
-Widget expansionTile(image,title){
+Widget expansionTile(String ?image,String ? title){
   return Container(
     width: double.infinity,
-    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
     decoration: boxBaseDecoration(greyLight, 10),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          image,
-          height: 25,
-          width: 25,
+        Row(
+          children: [
+            Image.network(
+              image!,
+              height: 25,
+              width: 25,
+            ),
+            gapWC(20),
+            tss(title, Colors.black, 15.0),
+          ],
         ),
-        gapWC(20),
-        tss(title, Colors.black, 15.0),
+        Icon(Icons.keyboard_arrow_down,
+          color: primaryColor.withOpacity(0.8),size: 34,)
       ],
     ),
   );

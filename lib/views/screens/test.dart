@@ -1,43 +1,49 @@
-import 'package:flutter/material.dart';
-
-class DynamicContainerScreen extends StatefulWidget {
-  @override
-  _DynamicContainerScreenState createState() => _DynamicContainerScreenState();
-}
-
-class _DynamicContainerScreenState extends State<DynamicContainerScreen> {
-  List<Widget> containers = [];
-
-  void _addContainer() {
-    setState(() {
-      containers.add(
-        Container(
-          width: 100,
-          height: 100,
-          margin: EdgeInsets.all(10),
-          color: Colors.blue,
-        ),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dynamic Containers'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            ...containers,
-            ElevatedButton(
-              onPressed: _addContainer,
-              child: Text('Add More'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// import 'package:flutter/material.dart';
+//
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key? key}) : super(key: key);
+//
+//
+//   @override
+//   _MyHomePageState createState() => new _MyHomePageState();
+// }
+//
+// class _MyHomePageState extends State<MyHomePage> {
+//   List<String>data= ["Mathew","Deon","Sara","Yeu"];
+//   List<String> userChecked = [];
+//   void _onSelected(bool selected, String dataName) {
+//     if (selected == true) {
+//       setState(() {
+//         userChecked.add(dataName);
+//       });
+//     } else {
+//       setState(() {
+//         userChecked.remove(dataName);
+//       });
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//       appBar: new AppBar(
+//         title: new Text("gvjg"),
+//       ),
+//       body: ListView.builder(
+//           itemCount: data.length,
+//           itemBuilder: (context, i) {
+//             return ListTile(
+//                 title: Text(
+//                     data[i]),
+//                 trailing:Checkbox(
+//             value: userChecked.contains(data[i]),
+//             onChanged: (val) {
+//             _onSelected(val!, data[i]);
+//             },
+//             )
+//             //you can use checkboxlistTile too
+//             );
+//           })
+//     );
+//   }
+// }

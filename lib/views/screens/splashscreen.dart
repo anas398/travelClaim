@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:travel_claim/views/const/appassets.dart';
-import 'package:travel_claim/views/screens/loginscreen.dart';
+import 'package:travel_claim/views/screens/login/loginscreen.dart';
+
 import 'package:travel_claim/views/screens/test.dart';
 import 'package:travel_claim/views/style/colors.dart';
 
@@ -16,9 +17,9 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
-    Future.delayed(Duration(
+    Future.delayed(const Duration(
       seconds: 2
-    ),()=>Get.offAll(LoginScreen()));
+    ),()=>Get.offAll(const LoginScreen()));
 
     // TODO: implement initState
     super.initState();

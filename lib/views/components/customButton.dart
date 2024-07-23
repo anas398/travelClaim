@@ -6,9 +6,10 @@ class Custombutton extends StatelessWidget {
   final VoidCallback onTap;
    final String buttonName;
    final Color buttonColor;
+   final double ?verticaPadding;
    final Color buttonTextColor;
    final Color ? buttonBorderColor;
-  const Custombutton({super.key, required this.onTap, required this.buttonName, required this.buttonColor, required this.buttonTextColor,  this.buttonBorderColor});
+  const Custombutton({super.key, required this.onTap, required this.buttonName, required this.buttonColor, required this.buttonTextColor,  this.buttonBorderColor, this.verticaPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class Custombutton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: boxOutlineCustom(buttonColor,10.0,buttonBorderColor??buttonColor),
-        padding: const EdgeInsets.symmetric(vertical: 9,horizontal: 20),
+        padding:  EdgeInsets.symmetric(vertical: verticaPadding?? 9,horizontal: 20),
         child: tssb(buttonName, buttonTextColor, FontWeight.bold),
       ),
     );

@@ -101,7 +101,7 @@ class _ClaimconfirmationState extends State<Claimconfirmation> {
                                  },
                                  child: Padding(
                                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
-                                   child: expansionTile(  claimconfirmationcontroller.expenseCategory.value[index]["image"]!, claimconfirmationcontroller.expenseCategory.value[index]["label"]),
+                                   child: expansionTile(  claimconfirmationcontroller.expenseCategory.value[index]["image"]!,   claimconfirmationcontroller.expenseCategory.value[index]["label"]),
                                  )
 
                              ),
